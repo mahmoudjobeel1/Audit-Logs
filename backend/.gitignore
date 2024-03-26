@@ -1,0 +1,20 @@
+# Node.js dependencies
+node_modules/
+
+# TypeScript compiled output
+dist/
+*.js
+*.d.ts
+*.js.map
+
+# Environment configuration files
+.env
+
+# Prisma artifacts
+prisma/migrations/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Logs
+*.log
