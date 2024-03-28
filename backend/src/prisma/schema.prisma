@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
@@ -8,36 +8,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Event (n) ------------> (1) Action
 model Event {
-  id          String   @id @default(cuid())
-  object      Object   @default(event)
-  actorId     String
-  actorName   String
-  group       String
-  action      Action   @relation(fields: [actionId] , references: [id])
-  actionId    String
-  targetId    String
-  targetName  String
-  location    String
-  occurredAt  DateTime
-  metadata    Json
+  id         String     @id @default(cuid())
+  object     ObjectType @default(Event)
+  actorId    String
+  actorName  String
+  group      String
+  targetId   String
+  targetName String
+  location   String
+  occurredAt DateTime
+  metadata   Json
+  action     Action[]
 
   @@map(name: "events")
 }
 
 model Action {
-  id       String   @id @default(cuid())
-  object   Object   @default(event_action)
-  name     String
-
-  event    Event[]
+  id      String     @id @default(cuid())
+  object  ObjectType @default(Event_Action)
+  name    String
+  eventId String
+  event   Event      @relation(fields: [eventId], references: [id])
 
   @@map(name: "actions")
 }
 
-enum Object{
-  event
-  event_action
+enum ObjectType {
+  Event
+  Event_Action
 }
-
