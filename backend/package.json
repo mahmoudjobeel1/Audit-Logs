@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prestart": "tsc",
-    "start": "node dist/app.js",
+    "start": "nodemon dist/src/app.js",
     "test": "jest"
   },
   "prisma": {
@@ -30,6 +30,8 @@
   },
   "dependencies": {
     "@prisma/client": "^5.11.0",
-    "fastify": "^4.26.2"
+    "chai": "^5.1.0",
+    "fastify": "^4.26.2",
+    "supertest": "^6.3.4"
   }
 }

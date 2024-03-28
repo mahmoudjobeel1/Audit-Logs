@@ -19,7 +19,7 @@ model Event {
   location   String
   occurredAt DateTime
   metadata   Json
-  action     Action[]
+  action   Action?
 
   @@map(name: "events")
 }
@@ -28,7 +28,7 @@ model Action {
   id      String     @id @default(cuid())
   object  ObjectType @default(Event_Action)
   name    String
-  eventId String
+  eventId String     @unique
   event   Event      @relation(fields: [eventId], references: [id])
 
   @@map(name: "actions")
