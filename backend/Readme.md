@@ -8,7 +8,7 @@
 - [x] Define the data model for events.
 
 ### Database Setup
-- [ ] Configure Prisma with Postgres.
+- [x] Configure Prisma with Postgres.
 
 ### API Development
 - [ ] Implement the `POST /events` endpoint.
