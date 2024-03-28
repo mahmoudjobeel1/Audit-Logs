@@ -5,7 +5,7 @@
 ## Tasks
 
 ### Model Design
-- [ ] Define the data model for events.
+- [x] Define the data model for events.
 
 ### Database Setup
 - [ ] Configure Prisma with Postgres.

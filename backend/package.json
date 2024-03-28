@@ -7,6 +7,9 @@
     "prestart": "tsc",
     "start": "node dist/app.js"
   },
+  "prisma": {
+    "schema": "./src/prisma/schema.prisma"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

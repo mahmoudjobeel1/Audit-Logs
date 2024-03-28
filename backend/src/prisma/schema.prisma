@@ -1,14 +1,43 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+// Event (n) ------------> (1) Action
+model Event {
+  id          String   @id @default(cuid())
+  object      Object   @default(event)
+  actorId     String
+  actorName   String
+  group       String
+  action      Action   @relation(fields: [actionId] , references: [id])
+  actionId    String
+  targetId    String
+  targetName  String
+  location    String
+  occurredAt  DateTime
+  metadata    Json
+
+  @@map(name: "events")
+}
+
+model Action {
+  id       String   @id @default(cuid())
+  object   Object   @default(event_action)
+  name     String
+
+  event    Event[]
+
+  @@map(name: "actions")
+}
+
+enum Object{
+  event
+  event_action
+}
+
