@@ -17,3 +17,19 @@ export type CreateEventInput = {
     }
   }
 };
+
+
+export type getEventsInput = {
+  actorId?: string;
+  actorName?: string;
+  group?: string;
+  targetId?: string;
+  targetName?: string;
+  actionName?: string;
+  occurredAtStart?: Date;
+  occurredAtEnd?: Date;
+  textSearch?: string;
+  limit?: number;
+  lastEventId?: string;
+}
+
