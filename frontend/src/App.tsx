@@ -1,12 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import SearchInput from "./Components/SearchInput";
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <section className="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
+      <div className="mx-auto max-w-screen-xl px-4 lg:px-12">
+        <SearchInput />
+        {/* Filters */}
+        {/* Table */}
+      </div>
+    </section>
   );
 }
 
