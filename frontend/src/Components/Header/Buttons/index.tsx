@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import FilterButton from "./FilterButton";
+import ExportButton from "./ExportButton";
 
 interface IGenericButtonProps {
   icon?: ReactNode;
@@ -22,8 +23,9 @@ export function GenericButton({ icon, text, onClick }: IGenericButtonProps) {
 
 export default function Buttons() {
   return (
-    <>
+    <div className="flex items-center space-x-3 w-full md:w-auto">
+      <ExportButton />
       <FilterButton />
-    </>
+    </div>
   );
 }
