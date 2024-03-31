@@ -1,5 +1,4 @@
 import Buttons from "./Buttons";
-import FilterButton from "./Buttons/FilterButton";
 import SearchInput from "./SearchInput";
 
 export default function Header() {

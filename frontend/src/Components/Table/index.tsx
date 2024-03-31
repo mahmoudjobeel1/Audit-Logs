@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import { LeftArraw } from "../../assests/svgIcons";
 
 export function RowTable() {
   const shortFormatedData = (dateText: string) => {
@@ -29,27 +30,7 @@ export function RowTable() {
             className="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100"
             type="button"
           >
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <g id="SVGRepo_bgCarrier" stroke-width="0" />
-              <g
-                id="SVGRepo_tracerCarrier"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              />
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M10 7L15 12L10 17"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </g>
-            </svg>
+            {LeftArraw}
           </button>
         </td>
       </tr>
