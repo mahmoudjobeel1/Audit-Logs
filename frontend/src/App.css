@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.test1 {
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
+}
+
+.test2 {
+  max-height: 500px;
+  transition: max-height 0.5s ease-in;
+}
