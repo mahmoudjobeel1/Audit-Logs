@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-import { LeftArraw } from "../../assests/svgIcons";
+import { LeftArraw } from "../../assests";
 import { Table } from "flowbite-react";
 
 export function LogRowTable() {

@@ -21,7 +21,7 @@
     "zustand": "^4.5.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "GENERATE_SOURCEMAP=false react-scripts start",
     "build": "react-scripts build"
   },
   "eslintConfig": {
