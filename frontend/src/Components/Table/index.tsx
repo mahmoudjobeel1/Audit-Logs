@@ -41,6 +41,8 @@ export default function LogsTable() {
         <Table.Body className="divide-y">
           <LogRowTable />
           <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
         </Table.Body>
       </Table>
     </div>
