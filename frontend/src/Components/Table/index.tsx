@@ -12,7 +12,17 @@ export default function LogsTable() {
           <Table.HeadCell>Date</Table.HeadCell>
           <Table.HeadCell />
         </Table.Head>
-        <Table.Body className="divide-y">
+        <Table.Body
+          className="divide-y"
+        >
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
+          <LogRowTable />
           <LogRowTable />
           <LogRowTable />
           <LogRowTable />
