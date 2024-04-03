@@ -4,7 +4,7 @@ import LogRowTable from "./LogRowTable";
 
 export default function LogsTable() {
   return (
-    <div className="overflow-x-auto">
+    <div className="overflow-auto">
       <Table hoverable>
         <Table.Head>
           <Table.HeadCell>Actor</Table.HeadCell>
