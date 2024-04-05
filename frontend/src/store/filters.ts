@@ -9,7 +9,7 @@ interface IFilterStateType {
   actionName?: string;
   occurredAtStart?: string;
   occurredAtEnd?: string;
-  textSearch?: string;
+  searchText?: string;
   limit?: number;
   lastEventId?: string;
   actionId?: string;
@@ -20,8 +20,8 @@ export const useFilterStore = create<{
   updateFilters: (filters: Partial<IFilterStateType>) => void;
 }>((set) => ({
   filters: {},
-  updateFilters: (filters) =>
+  updateFilters: (filters) =>{
     set((state) => ({
       filters: { ...state.filters, ...filters },
-    })),
+  }))},
 }));

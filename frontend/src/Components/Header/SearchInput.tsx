@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
 import { SearchIcon } from "../../assests";
 import { useFilterStore } from "../../store/filters";
+import React from "react";
 
-export default function SearchInput() {
+export default React.memo(function SearchInput() {
   const { updateFilters } = useFilterStore();
   const [searchTerm, setSearchTerm] = useState("");
-  const [debouncedSearchTerm, setDebouncedSearchTerm] =
-    useState<string>(searchTerm);
 
   useEffect(() => {
     const handler = setTimeout(() => {
-      setDebouncedSearchTerm(searchTerm);
-    }, 500);
+      updateFilters({ searchText: searchTerm });
+    }, 1000);
 
     return () => {
       clearTimeout(handler);
     };
-  }, [searchTerm]);
-
-  useEffect(() => {
-    updateFilters({ textSearch: debouncedSearchTerm });
-  }, [debouncedSearchTerm]);
+  }, [searchTerm, updateFilters]);
 
   return (
     <form className="flex items-center">
@@ -37,4 +32,4 @@ export default function SearchInput() {
       </div>
     </form>
   );
-}
+});

@@ -3,6 +3,11 @@ import { eventRoutes } from './api/controllers/event.controller';
 
 export const app = fastify({ logger: false });
 
+
+app.register(require('@fastify/cors'), {
+  origin: 'http://localhost:3000'
+});
+
 app.get('/', async (request, reply) => {
   return { message: 'Hello, World!' };
 });

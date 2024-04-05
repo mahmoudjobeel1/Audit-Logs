@@ -1,12 +1,22 @@
 import config from "../config";
 import useSWR from "swr";
 
-type Params = {
+export type Params = {
   [key: string]: string;
 };
 
 const fetcher = (url: string, options?: RequestInit) =>
   fetch(url, options).then((res) => res.json());
+
+const filterParams = (obj: { [key: string]: any }) => {
+  const filteredParams: { [key: string]: any } = {};
+  Object.keys(obj).forEach((key) => {
+    if (obj[key] !== null && obj[key] !== undefined && obj[key] !== "") {
+      filteredParams[key] = obj[key];
+    }
+  });
+  return filteredParams;
+};
 
 export const useDataFetcher = (
   url: string,
@@ -14,10 +24,15 @@ export const useDataFetcher = (
   body?: BodyInit,
   params?: Params
 ) => {
-  const queryString = params ? new URLSearchParams(params).toString() : "";
+
+  const cleanParams = filterParams(params || {});
+
+  const queryString = params ? new URLSearchParams(cleanParams).toString() : "";
   const fullUrl = `${config.BACKEND_HOST + url}${
     queryString ? `?${queryString}` : ""
   }`;
+
+  console.log(fullUrl);
   const options: RequestInit = {
     method,
     ...(body && { body }),
