@@ -1,6 +1,7 @@
 import { Modal, Button } from "flowbite-react";
 import { useState } from "react";
 import { FilterIcon } from "../../assests";
+import { useFilterStore } from "../../store/filters";
 
 interface IFilterInputType {
   id?: string;
@@ -41,13 +42,12 @@ const DateTimeInput: React.FC<IFilterInputType> = ({
   children,
   value,
 }) => {
+  const initialValue = value ? new Date(value) : new Date();
+  const initialDate = initialValue.toISOString().split("T")[0];
+  const initialTime = initialValue.toTimeString().split(" ")[0].substring(0, 5);
 
-  const initialValue =value?  new Date(value): new Date();
-  const initialDate = initialValue.toISOString().split('T')[0];
-  const initialTime = initialValue.toTimeString().split(' ')[0].substring(0, 5);
-
-  const [date, setDate] = useState(value? initialDate: '');
-  const [time, setTime] = useState(value? initialTime: '');
+  const [date, setDate] = useState(value ? initialDate : "");
+  const [time, setTime] = useState(value ? initialTime : "");
 
   const handleDateChange = (e: any) => {
     const newDate = e.target.value;
@@ -94,6 +94,7 @@ const DateTimeInput: React.FC<IFilterInputType> = ({
 };
 
 export default function FiltersButton() {
+  const { updateFilters } = useFilterStore();
   const [openModal, setOpenModal] = useState(false);
   const [actorId, setActorId] = useState("");
   const [targetId, setTargetId] = useState("");
@@ -155,8 +156,40 @@ export default function FiltersButton() {
           </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => setOpenModal(false)}>Search</Button>
-          <Button color="gray" onClick={() => setOpenModal(false)}>
+          <Button
+            onClick={() => {
+              setOpenModal(false);
+              updateFilters({
+                actorId,
+                targetId,
+                actionId,
+                actionName,
+                occurredAtStart: fromDate,
+                occurredAtEnd: toDate,
+              });
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            color="gray"
+            onClick={() => {
+              setActionId("");
+              setActionName("");
+              setActorId("");
+              setTargetId("");
+              setFromDate("");
+              setToDate("");
+              updateFilters({
+                actorId,
+                targetId,
+                actionId,
+                actionName,
+                occurredAtStart: fromDate,
+                occurredAtEnd: toDate,
+              });
+            }}
+          >
             Reset
           </Button>
         </Modal.Footer>

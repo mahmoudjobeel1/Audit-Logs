@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { SearchIcon } from "../../assests";
+import { useFilterStore } from "../../store/filters";
 
 export default function SearchInput() {
+  const { updateFilters } = useFilterStore();
   const [searchTerm, setSearchTerm] = useState("");
   const [debouncedSearchTerm, setDebouncedSearchTerm] =
     useState<string>(searchTerm);
@@ -17,7 +19,7 @@ export default function SearchInput() {
   }, [searchTerm]);
 
   useEffect(() => {
-    console.log(debouncedSearchTerm);
+    updateFilters({ textSearch: debouncedSearchTerm });
   }, [debouncedSearchTerm]);
 
   return (

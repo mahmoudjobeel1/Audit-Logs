@@ -1,7 +1,27 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
-// const useFilters = create((set) => ({
-//   bears: 0,
-//   increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-//   removeAllBears: () => set({ bears: 0 }),
-// }))
+interface IFilterStateType {
+  actorId?: string;
+  actorName?: string;
+  group?: string;
+  targetId?: string;
+  targetName?: string;
+  actionName?: string;
+  occurredAtStart?: string;
+  occurredAtEnd?: string;
+  textSearch?: string;
+  limit?: number;
+  lastEventId?: string;
+  actionId?: string;
+}
+
+export const useFilterStore = create<{
+  filters: IFilterStateType;
+  updateFilters: (filters: Partial<IFilterStateType>) => void;
+}>((set) => ({
+  filters: {},
+  updateFilters: (filters) =>
+    set((state) => ({
+      filters: { ...state.filters, ...filters },
+    })),
+}));
