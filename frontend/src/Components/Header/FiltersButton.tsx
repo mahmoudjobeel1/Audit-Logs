@@ -7,6 +7,7 @@ interface IFilterInputType {
   placeholder?: string;
   onInputChange?: (e: any) => void;
   children?: React.ReactNode;
+  value?: string;
 }
 
 const FilterInput: React.FC<IFilterInputType> = ({
@@ -14,6 +15,7 @@ const FilterInput: React.FC<IFilterInputType> = ({
   placeholder,
   onInputChange,
   children,
+  value,
 }) => {
   return (
     <div className="flex flex-col">
@@ -26,6 +28,7 @@ const FilterInput: React.FC<IFilterInputType> = ({
         placeholder={placeholder}
         className="mt-2 block w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 placeholder:text-xs"
         onChange={onInputChange}
+        value={value}
       />
     </div>
   );
@@ -36,9 +39,15 @@ const DateTimeInput: React.FC<IFilterInputType> = ({
   placeholder,
   onInputChange,
   children,
+  value,
 }) => {
-  const [date, setDate] = useState("");
-  const [time, setTime] = useState("");
+
+  const initialValue =value?  new Date(value): new Date();
+  const initialDate = initialValue.toISOString().split('T')[0];
+  const initialTime = initialValue.toTimeString().split(' ')[0].substring(0, 5);
+
+  const [date, setDate] = useState(value? initialDate: '');
+  const [time, setTime] = useState(value? initialTime: '');
 
   const handleDateChange = (e: any) => {
     const newDate = e.target.value;
@@ -70,12 +79,14 @@ const DateTimeInput: React.FC<IFilterInputType> = ({
           id={`${id}_date`}
           className="max-w-sm mt-2 text-sm placeholder:text-xs text-stone-600 w-full rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           onChange={handleDateChange}
+          value={date}
         />
         <input
           type="time"
           id={`${id}_time`}
           className="max-w-sm mt-2 w-full placeholder:text-xs text-sm text-stone-600 rounded-md border border-gray-100 bg-gray-100 px-2 py-2 shadow-sm outline-none focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
           onChange={handleTimeChange}
+          value={time}
         />
       </div>
     </div>
@@ -84,6 +95,12 @@ const DateTimeInput: React.FC<IFilterInputType> = ({
 
 export default function FiltersButton() {
   const [openModal, setOpenModal] = useState(false);
+  const [actorId, setActorId] = useState("");
+  const [targetId, setTargetId] = useState("");
+  const [actionId, setActionId] = useState("");
+  const [actionName, setActionName] = useState("");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
   return (
     <>
@@ -101,33 +118,39 @@ export default function FiltersButton() {
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             <FilterInput
               id="actor_id"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setActorId(e.target.value)}
               placeholder="Actor ID"
+              value={actorId}
             />
             <FilterInput
               id="target_id"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setTargetId(e.target.value)}
               placeholder="Target ID"
+              value={targetId}
             />
             <FilterInput
               id="action_id"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setActionId(e.target.value)}
               placeholder="Action ID"
+              value={actionId}
             />
             <FilterInput
               id="action_name"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setActionName(e.target.value)}
               placeholder="Action name"
+              value={actionName}
             />
             <DateTimeInput
               id="from"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setFromDate(e.target.value)}
               placeholder="from"
+              value={fromDate}
             />
             <DateTimeInput
               id="to"
-              onInputChange={(e) => console.log(e.target.value)}
+              onInputChange={(e) => setToDate(e.target.value)}
               placeholder="to"
+              value={toDate}
             />
           </div>
         </Modal.Body>
