@@ -11,10 +11,10 @@ export default function LogsTable() {
     <div className="overflow-auto">
       <Table hoverable>
         <Table.Head>
-          <Table.HeadCell>Actor</Table.HeadCell>
-          <Table.HeadCell>Action</Table.HeadCell>
-          <Table.HeadCell>Date</Table.HeadCell>
-          <Table.HeadCell />
+          <Table.HeadCell className="bg-gray-100">Actor</Table.HeadCell>
+          <Table.HeadCell className="bg-gray-100">Action</Table.HeadCell>
+          <Table.HeadCell className="bg-gray-100">Date</Table.HeadCell>
+          <Table.HeadCell className="bg-gray-100"/>
         </Table.Head>
         <Table.Body className="divide-y">
           {events.map((event) => (

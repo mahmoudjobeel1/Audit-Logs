@@ -16,7 +16,7 @@ export const RedLiveIcon = (
         fillRule="evenodd"
         clipRule="evenodd"
         d="M3 6C1.3431 6 0 4.6569 0 3C0 1.3431 1.3431 0 3 0C4.6569 0 6 1.3431 6 3C6 4.6569 4.6569 6 3 6z"
-        fill="#f92f2f"
+        fill="#8F485D"
       ></path>
     </g>
   </svg>
