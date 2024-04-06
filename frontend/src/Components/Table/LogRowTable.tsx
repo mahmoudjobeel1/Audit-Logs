@@ -13,6 +13,12 @@ interface IEventCardType {
   details: { [key: string]: string };
 }
 
+const getGradientFromChar = (char: string) => {
+  const colorCode1 = (char.charCodeAt(0) *1) % 256;
+  const colorCode2 = (char.charCodeAt(0) * 3) % 256;
+  return `linear-gradient(to right, rgba(${colorCode1}, 136,229, 0.9), rgba(${colorCode2}, 30, 99, 0.9))`;
+};
+
 const EventCard: React.FC<IEventCardType> = ({ label, details }) => {
   return (
     <div className="p-4">
@@ -43,10 +49,26 @@ export default function LogRowTable({ event }: { event: IEventType }) {
     leave: { opacity: 0, transform: "translate3d(0,-100%,0)" },
   });
 
+  const CharGradient = (char: string) => {
+    return {
+      background: getGradientFromChar(char),
+    };
+  };
   return (
     <>
       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 text-gray-900 dark:text-white">
-        <Table.Cell>{event.actorName}</Table.Cell>
+        <Table.Cell>
+          <div className="flex flex-row items-center">
+            <div
+              className={`inline-flex h-6 w-6 items-center mr-2 justify-center rounded-full text-1xl text-white`}
+              style={CharGradient(event.actorName[0])}
+            >
+              {event.actorName[0]}
+            </div>
+
+            {event.actorName}
+          </div>
+        </Table.Cell>
         <Table.Cell>{event.action.name}</Table.Cell>
         <Table.Cell>{shortFormatedData(event.occurredAt)}</Table.Cell>
         <Table.Cell>
@@ -58,56 +80,58 @@ export default function LogRowTable({ event }: { event: IEventType }) {
       <Table.Row className={` ${showInfo ? "table-row" : "hidden"} `}>
         <Table.Cell colSpan={100}>
           <Card>
-           {transitions((style, item) =>
-                item ? (
-             <animated.div style={style}> 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-x-12 gap-y-6">              <EventCard
-                label="ACTOR"
-                details={{
-                  Name: event.actorName,
-                  Group: event.group,
-                  ID: event.actorId,
-                }}
-              />
-              <EventCard
-                label="ACTION"
-                details={{
-                  Name: event.action.name,
-                  Object: event.action.object,
-                  ID: event.action.id,
-                }}
-              />
-              <EventCard
-                label="Date"
-                details={{
-                  Readable: shortFormatedData(event.occurredAt),
-                }}
-              />
-              <EventCard
-                label="METADATA"
-                details={{
-                  location: event.location,
-                  ...event.metadata,
-                }}
-              />
-              <EventCard
-                label="ACTOR"
-                details={{
-                  Name: "Mahmoud",
-                  Location: "Cairo",
-                }}
-              />
-              <EventCard
-                label="TARGET"
-                details={{
-                  Name: event.targetName,
-                  ID: event.targetId,
-                }}
-              />
-            </div>
-            </animated.div>
-                ) : null
-              )}
+            {transitions((style, item) =>
+              item ? (
+                <animated.div style={style}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-x-12 gap-y-6">
+                    {" "}
+                    <EventCard
+                      label="ACTOR"
+                      details={{
+                        Name: event.actorName,
+                        Group: event.group,
+                        ID: event.actorId,
+                      }}
+                    />
+                    <EventCard
+                      label="ACTION"
+                      details={{
+                        Name: event.action.name,
+                        Object: event.action.object,
+                        ID: event.action.id,
+                      }}
+                    />
+                    <EventCard
+                      label="Date"
+                      details={{
+                        Readable: shortFormatedData(event.occurredAt),
+                      }}
+                    />
+                    <EventCard
+                      label="METADATA"
+                      details={{
+                        location: event.location,
+                        ...event.metadata,
+                      }}
+                    />
+                    <EventCard
+                      label="ACTOR"
+                      details={{
+                        Name: "Mahmoud",
+                        Location: "Cairo",
+                      }}
+                    />
+                    <EventCard
+                      label="TARGET"
+                      details={{
+                        Name: event.targetName,
+                        ID: event.targetId,
+                      }}
+                    />
+                  </div>
+                </animated.div>
+              ) : null
+            )}
           </Card>
         </Table.Cell>
       </Table.Row>
