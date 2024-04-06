@@ -1,7 +1,7 @@
-import { Table } from "flowbite-react";
+import { Table, Tooltip } from "flowbite-react";
 import moment from "moment";
 import { useState } from "react";
-import { LeftArraw } from "../../assests";
+import { CopyIcon, LeftArraw } from "../../assests";
 import { useTransition, animated } from "react-spring";
 
 import { Card } from "flowbite-react";
@@ -14,9 +14,37 @@ interface IEventCardType {
 }
 
 const getGradientFromChar = (char: string) => {
-  const colorCode1 = (char.charCodeAt(0) *1) % 256;
+  const colorCode1 = (char.charCodeAt(0) * 1) % 256;
   const colorCode2 = (char.charCodeAt(0) * 3) % 256;
   return `linear-gradient(to right, rgba(${colorCode1}, 136,229, 0.9), rgba(${colorCode2}, 30, 99, 0.9))`;
+};
+
+const CopyToClipboardButton = ({ value }: { value: string }) => {
+  const [tooltipContent, setTooltipContent] = useState("copy to clipboard");
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(value)
+      .then(() => {
+        setTooltipContent("copied to clipboard");
+        setTimeout(() => setTooltipContent("copy to clipboard"), 2000);
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
+
+  return (
+    <Tooltip
+      className="bg-gray-400 font-sans text-xs"
+      arrow={false}
+      content={tooltipContent}
+    >
+      <button type="button" onClick={handleCopy}>
+        {CopyIcon}
+      </button>
+    </Tooltip>
+  );
 };
 
 const EventCard: React.FC<IEventCardType> = ({ label, details }) => {
@@ -25,7 +53,12 @@ const EventCard: React.FC<IEventCardType> = ({ label, details }) => {
       <h2 className="text-xl dark:text-white mb-2">{label}</h2>
       {Object.entries(details).map(([key, value]) => (
         <div key={key} className="grid grid-cols-2 gap-x-6 gap-y-2 break-all">
-          <div className="font-bold">{key}</div>
+          <div className="flex flex-row items-center">
+            {key}
+            <div className="inline-flex h-6 w-6 items-center ml-2 justify-center rounded-full text-1xl text-white">
+              <CopyToClipboardButton value={value} />
+            </div>
+          </div>
           <div className="text-gray-900 text-sm">{value}</div>
         </div>
       ))}
@@ -83,8 +116,7 @@ export default function LogRowTable({ event }: { event: IEventType }) {
             {transitions((style, item) =>
               item ? (
                 <animated.div style={style}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-x-12 gap-y-6">
-                    {" "}
+                  <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3  gap-x-12 gap-y-6">
                     <EventCard
                       label="ACTOR"
                       details={{
