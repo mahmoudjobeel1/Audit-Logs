@@ -20,7 +20,7 @@ export type CreateEventInput = {
 
 
 export type getEventsInput = {
-  eventId?: string;
+  id?: string;
   actorId?: string;
   actorName?: string;
   group?: string;

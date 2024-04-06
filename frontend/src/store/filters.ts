@@ -11,7 +11,6 @@ interface IFilterStateType {
   occurredAtEnd?: string;
   searchText?: string;
   limit?: number;
-  lastEventId?: string;
   actionId?: string;
 }
 

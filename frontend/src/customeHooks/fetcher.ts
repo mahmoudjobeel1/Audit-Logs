@@ -1,8 +1,7 @@
 import config from "../config";
-import useSWR from "swr";
 
 export type Params = {
-  [key: string]: string;
+  [key: string]: string | number;
 };
 
 const fetcher = (url: string, options?: RequestInit) =>
@@ -18,24 +17,26 @@ const filterParams = (obj: { [key: string]: any }) => {
   return filteredParams;
 };
 
-export const useDataFetcher = (
-  url: string,
-  method: string,
+export const fetchData = async (
+  endpoint: string,
+  method: string = 'GET',
   body?: BodyInit,
   params?: Params
 ) => {
 
   const cleanParams = filterParams(params || {});
+  const queryString = Object.keys(cleanParams).length
+    ? `?${new URLSearchParams(cleanParams)}`
+    : '';
 
-  const queryString = params ? new URLSearchParams(cleanParams).toString() : "";
-  const fullUrl = `${config.BACKEND_HOST + url}${
-    queryString ? `?${queryString}` : ""
-  }`;
-
+  const fullUrl = `${config.BACKEND_HOST}${endpoint}${queryString}`;
   const options: RequestInit = {
     method,
     ...(body && { body }),
+    headers: {
+      'Content-Type': 'application/json'
+    },
   };
-  const { data, error } = useSWR(fullUrl, () => fetcher(fullUrl, options));
-  return { data, error };
+
+  return fetcher(fullUrl, options);
 };

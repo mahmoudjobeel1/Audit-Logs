@@ -19,12 +19,12 @@ export class EventService {
   }
 
   async getEvents(eventData: getEventsInput) {
-    console.log(eventData);
     let { limit = this.defaultLimit, searchText } = eventData;
 
     limit = typeof limit === "string" ? parseInt(limit, 10) : limit;
 
     let filters = {
+      id: eventData?.id,
       actorId: eventData?.actorId,
       group: eventData?.group,
       occurredAt: {
@@ -54,7 +54,6 @@ export class EventService {
      ...filters,
       OR: search,
     };
-
     return await this.prisma.event.findMany({
       where: whereClause,
       ...pagination,
