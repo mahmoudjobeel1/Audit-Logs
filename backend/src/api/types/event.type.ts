@@ -20,6 +20,7 @@ export type CreateEventInput = {
 
 
 export type getEventsInput = {
+  eventId?: string;
   actorId?: string;
   actorName?: string;
   group?: string;
@@ -28,7 +29,7 @@ export type getEventsInput = {
   actionName?: string;
   occurredAtStart?: Date;
   occurredAtEnd?: Date;
-  textSearch?: string;
+  searchText?: string;
   limit?: number;
   lastEventId?: string;
 }

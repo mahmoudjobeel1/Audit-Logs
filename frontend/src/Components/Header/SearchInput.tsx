@@ -10,7 +10,7 @@ export default React.memo(function SearchInput() {
   useEffect(() => {
     const handler = setTimeout(() => {
       updateFilters({ searchText: searchTerm });
-    }, 1000);
+    }, 500);
 
     return () => {
       clearTimeout(handler);

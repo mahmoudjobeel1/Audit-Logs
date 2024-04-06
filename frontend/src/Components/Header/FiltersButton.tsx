@@ -181,12 +181,12 @@ export default function FiltersButton() {
               setFromDate("");
               setToDate("");
               updateFilters({
-                actorId,
-                targetId,
-                actionId,
-                actionName,
-                occurredAtStart: fromDate,
-                occurredAtEnd: toDate,
+                actorId: "",
+                targetId:"",
+                actionId:"",
+                actionName:"",
+                occurredAtStart:"",
+                occurredAtEnd:"",
               });
             }}
           >
