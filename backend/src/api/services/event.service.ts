@@ -20,12 +20,7 @@ export class EventService {
 
   async getEvents(eventData: getEventsInput) {
     let { limit = this.defaultLimit, searchText } = eventData;
-
-    console.log(eventData);
-    console.log(new Date(parseInt(eventData.occurredAtStart)))
-
-
-
+    
     limit = typeof limit === "string" ? parseInt(limit, 10) : limit;
 
     const occurredAtStart = eventData.occurredAtStart

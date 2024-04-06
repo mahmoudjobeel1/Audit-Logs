@@ -3,7 +3,6 @@ import { RedLiveIcon, GreenLiveIcon } from "../../assests";
 import { useFilterStore } from "../../store/filters";
 import { IEventType, useEventsStore } from "../../store/events";
 import { Params, fetchData } from "../../customeHooks/fetcher";
-import { update } from "react-spring";
 
 const POLL_INTERVAL = 5000;
 

@@ -164,8 +164,8 @@ export default function FiltersButton() {
                 targetId,
                 actionId,
                 actionName,
-                occurredAtStart: fromDate,
-                occurredAtEnd: toDate,
+                occurredAtStart: fromDate? "" + new Date(fromDate).getTime(): undefined,
+                occurredAtEnd:toDate? "" + new Date(toDate).getTime(): undefined,
               });
             }}
           >
@@ -182,11 +182,11 @@ export default function FiltersButton() {
               setToDate("");
               updateFilters({
                 actorId: "",
-                targetId:"",
-                actionId:"",
-                actionName:"",
-                occurredAtStart:"",
-                occurredAtEnd:"",
+                targetId: "",
+                actionId: "",
+                actionName: "",
+                occurredAtStart: "",
+                occurredAtEnd: "",
               });
             }}
           >
