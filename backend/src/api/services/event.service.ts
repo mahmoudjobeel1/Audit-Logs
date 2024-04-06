@@ -21,15 +21,27 @@ export class EventService {
   async getEvents(eventData: getEventsInput) {
     let { limit = this.defaultLimit, searchText } = eventData;
 
+    console.log(eventData);
+    console.log(new Date(parseInt(eventData.occurredAtStart)))
+
+
+
     limit = typeof limit === "string" ? parseInt(limit, 10) : limit;
 
+    const occurredAtStart = eventData.occurredAtStart
+      ? new Date(parseInt(eventData.occurredAtStart))
+      : undefined;
+    const occurredAtEnd = eventData.occurredAtEnd
+      ? new Date(parseInt(eventData.occurredAtEnd))
+      : undefined;
+      
     let filters = {
       id: eventData?.id,
       actorId: eventData?.actorId,
       group: eventData?.group,
       occurredAt: {
-        gte: eventData?.occurredAtStart,
-        lte: eventData?.occurredAtEnd,
+        gte: occurredAtStart,
+        lte: occurredAtEnd,
       },
     };
 
@@ -39,6 +51,7 @@ export class EventService {
       { targetName: { contains: searchText } },
       { action: { name: { contains: searchText } } },
     ];
+
 
     let pagination: any = eventData?.lastEventId
       ? {
@@ -51,7 +64,7 @@ export class EventService {
       : { take: limit };
 
     const whereClause: any = {
-     ...filters,
+      ...filters,
       OR: search,
     };
     return await this.prisma.event.findMany({

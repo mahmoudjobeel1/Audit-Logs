@@ -27,8 +27,8 @@ export type getEventsInput = {
   targetId?: string;
   targetName?: string;
   actionName?: string;
-  occurredAtStart?: Date;
-  occurredAtEnd?: Date;
+  occurredAtStart?: string;
+  occurredAtEnd?: string;
   searchText?: string;
   limit?: number;
   lastEventId?: string;
