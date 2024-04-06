@@ -3,6 +3,7 @@ import { Card, Table } from "flowbite-react";
 import LogRowTable from "./LogRowTable";
 import { useEventsStore } from "../../store/events";
 import { EmptyIcon } from "../../assests";
+import { useLoadingStore } from "../../store/loading";
 
 const NoDataToShow: React.FC = () => {
   return (
@@ -22,8 +23,30 @@ const NoDataToShow: React.FC = () => {
   );
 };
 
+const LoadingStatus: React.FC = () => {
+  const divs = Array.from({ length: 10 }, (_, index) => (
+    <div key={index} className="h-2 bg-slate-200 rounded"></div>
+  ));
+  return (
+    <tr>
+      <Table.Cell colSpan={100}>
+        <div aria-colspan={100} className=" shadow rounded-md p-4 max-w w-full mx-auto">
+          <div className="animate-pulse flex space-x-4">
+            <div className="flex-1 space-y-6 py-1">
+              <div className="space-y-3">
+                 {divs}
+              </div>
+            </div>
+          </div>
+        </div>
+      </Table.Cell>
+    </tr>
+  );
+};
+
 export default function LogsTable() {
   const { arrayOfEvents } = useEventsStore();
+  const { isLoading } = useLoadingStore();
   const events = arrayOfEvents || [];
 
   return (
@@ -36,10 +59,16 @@ export default function LogsTable() {
           <Table.HeadCell className="bg-gray-100" />
         </Table.Head>
         <Table.Body className="divide-y">
-          {events.length > 0 ? (
-            events.map((event) => <LogRowTable key={event.id} event={event} />)
+          {!isLoading ? (
+            events.length > 0 ? (
+              events.map((event) => (
+                <LogRowTable key={event.id} event={event} />
+              ))
+            ) : (
+              <NoDataToShow />
+            )
           ) : (
-            <NoDataToShow />
+            <LoadingStatus />
           )}
         </Table.Body>
       </Table>

@@ -2,12 +2,15 @@ import { useCallback, useEffect } from "react";
 import { Params, fetchData } from "../../customeHooks/fetcher";
 import { IEventType, useEventsStore } from "../../store/events";
 import { useFilterStore } from "../../store/filters";
+import { useLoadingStore } from "../../store/loading";
 
 function LoadMoreButton() {
   const { filters } = useFilterStore();
   const { arrayOfEvents, insertLast } = useEventsStore();
+  const { setIsLoading } = useLoadingStore();
 
   const handleLoadMoreClick = useCallback(() => {
+    setIsLoading(true);
     const params = {
       ...filters,
       lastEventId:
@@ -17,6 +20,7 @@ function LoadMoreButton() {
     } as Params;
     fetchData("/events", "GET", undefined, params).then((data) => {
       insertLast(data as IEventType[]);
+      setIsLoading(false);
     });
   }, [arrayOfEvents, filters, insertLast]);
 
