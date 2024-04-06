@@ -32,7 +32,6 @@ export const useDataFetcher = (
     queryString ? `?${queryString}` : ""
   }`;
 
-  console.log(fullUrl);
   const options: RequestInit = {
     method,
     ...(body && { body }),

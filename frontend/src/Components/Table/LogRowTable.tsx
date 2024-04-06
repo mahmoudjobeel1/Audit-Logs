@@ -6,6 +6,7 @@ import { useTransition, animated } from "react-spring";
 
 import { Card } from "flowbite-react";
 import React from "react";
+import { IEventType } from "../../store/events";
 
 interface IEventCardType {
   label: string;
@@ -14,21 +15,19 @@ interface IEventCardType {
 
 const EventCard: React.FC<IEventCardType> = ({ label, details }) => {
   return (
-    <div className="flex flex-col gap-y-2 border-2 border-dashed p-4 rounded-3xl">
-      <h2 className="text-xl tracking-tight dark:text-white">{label}</h2>
-      <div className="grid grid-cols-2 gap-x-8 gap-y-2">
-        {Object.entries(details).map(([key, value]) => (
-          <React.Fragment key={key}>
-            <span className="font-bold text-left">{key}</span>
-            <span className="text-left text-gray-900">{value}</span>
-          </React.Fragment>
-        ))}
-      </div>
+    <div className="p-4">
+      <h2 className="text-xl dark:text-white mb-2">{label}</h2>
+      {Object.entries(details).map(([key, value]) => (
+        <div key={key} className="grid grid-cols-2 gap-x-6 gap-y-2 break-all">
+          <div className="font-bold">{key}</div>
+          <div className="text-gray-900 text-sm">{value}</div>
+        </div>
+      ))}
     </div>
   );
 };
 
-export default function LogRowTable() {
+export default function LogRowTable({ event }: { event: IEventType }) {
   const [showInfo, setShowInfo] = useState(false);
 
   const shortFormatedData = (dateText: string) => {
@@ -47,9 +46,9 @@ export default function LogRowTable() {
   return (
     <>
       <Table.Row className="bg-white dark:border-gray-700 dark:bg-gray-800 text-gray-900 dark:text-white">
-        <Table.Cell>Mahmoud</Table.Cell>
-        <Table.Cell>user.login_succeeded</Table.Cell>
-        <Table.Cell>{shortFormatedData("2022-01-05T14:31:13.607Z")}</Table.Cell>
+        <Table.Cell>{event.actorName}</Table.Cell>
+        <Table.Cell>{event.action.name}</Table.Cell>
+        <Table.Cell>{shortFormatedData(event.occurredAt)}</Table.Cell>
         <Table.Cell>
           <button type="button" onClick={() => setShowInfo(!showInfo)}>
             {LeftArraw}
@@ -59,21 +58,56 @@ export default function LogRowTable() {
       <Table.Row className={` ${showInfo ? "table-row" : "hidden"} `}>
         <Table.Cell colSpan={100}>
           <Card>
-            {transitions((style, item) =>
-              item ? (
-                <animated.div style={style}>
-                  <div className="flex flex-wrap flex-row gap-x-12 gap-y-6">
-                    <EventCard
-                      label="ACTOR"
-                      details={{
-                        Name: "Mahmoud",
-                        Location: "Cairo",
-                      }}
-                    />
-                  </div>
-                </animated.div>
-              ) : null
-            )}
+           {transitions((style, item) =>
+                item ? (
+             <animated.div style={style}> 
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3  gap-x-12 gap-y-6">              <EventCard
+                label="ACTOR"
+                details={{
+                  Name: event.actorName,
+                  Group: event.group,
+                  ID: event.actorId,
+                }}
+              />
+              <EventCard
+                label="ACTION"
+                details={{
+                  Name: event.action.name,
+                  Object: event.action.object,
+                  ID: event.action.id,
+                }}
+              />
+              <EventCard
+                label="Date"
+                details={{
+                  Readable: shortFormatedData(event.occurredAt),
+                }}
+              />
+              <EventCard
+                label="METADATA"
+                details={{
+                  location: event.location,
+                  ...event.metadata,
+                }}
+              />
+              <EventCard
+                label="ACTOR"
+                details={{
+                  Name: "Mahmoud",
+                  Location: "Cairo",
+                }}
+              />
+              <EventCard
+                label="TARGET"
+                details={{
+                  Name: event.targetName,
+                  ID: event.targetId,
+                }}
+              />
+            </div>
+            </animated.div>
+                ) : null
+              )}
           </Card>
         </Table.Cell>
       </Table.Row>
