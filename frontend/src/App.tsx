@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import Table from "./Components/Table";
 import Header from "./Components/Header/Index";
 import { Card } from "flowbite-react";
