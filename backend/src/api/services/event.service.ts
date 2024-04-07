@@ -10,6 +10,7 @@ export class EventService {
   }
 
   async create(eventData: CreateEventInput) {
+    console.log(eventData);
     return this.prisma.event.create({
       data: eventData,
       include: {

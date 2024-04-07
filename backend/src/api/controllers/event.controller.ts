@@ -6,7 +6,6 @@ export async function eventRoutes(app){
 
     app.post('/create_event', async (req, res) => {
         try{
-            
             const event = await eventService.create({...req.body, occurredAt: new Date().toISOString()} as CreateEventInput);
             return res.code(201).send(event);
         }catch(err){
