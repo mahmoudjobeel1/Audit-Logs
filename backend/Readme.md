@@ -1,6 +1,4 @@
-# Instalog Audit Logs Backend
-
-This repository contains the Audit Logs backend implementation for Instalog, an activity log system for tracking user actions within applications.
+# Audit Logs Backend
 
 ## Table of Contents
 
@@ -35,7 +33,7 @@ Instalog provides a robust backend solution for logging various user activities 
 
 To set up the Instalog backend locally, follow these steps:
 
-1. Clone this repository: `git clone <repository-url>`
+1. Clone this repository: `git clone https://github.com/mahmoudjobeel1/Audit-Logs/tree/main/backend`
 2. Install dependencies: `npm install`
 3. Set up your PostgreSQL database and configure the connection in `.env` file.
 4. Run the migrations: `npx prisma migrate dev`
