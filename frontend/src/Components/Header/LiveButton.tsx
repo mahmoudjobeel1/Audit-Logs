@@ -37,6 +37,7 @@ export default function LiveButton() {
       const intervalId = setInterval(fetchEvents, POLL_INTERVAL);
       return () => clearInterval(intervalId);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLive]);
 
   return (

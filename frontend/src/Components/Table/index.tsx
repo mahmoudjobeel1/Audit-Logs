@@ -1,9 +1,8 @@
 import React from "react";
 import { Card, Table } from "flowbite-react";
 import LogRowTable from "./LogRowTable";
-import { useEventsStore } from "../../store/events";
 import { EmptyIcon } from "../../assests";
-import { useLoadingStore } from "../../store/loading";
+import { useFetchEvents } from "../../customeHooks/useFetchEvents";
 
 const NoDataToShow: React.FC = () => {
   return (
@@ -30,12 +29,13 @@ const LoadingStatus: React.FC = () => {
   return (
     <tr>
       <Table.Cell colSpan={100}>
-        <div aria-colspan={100} className=" shadow rounded-md p-4 max-w w-full mx-auto">
+        <div
+          aria-colspan={100}
+          className=" shadow rounded-md p-4 max-w w-full mx-auto"
+        >
           <div className="animate-pulse flex space-x-4">
             <div className="flex-1 space-y-6 py-1">
-              <div className="space-y-3">
-                 {divs}
-              </div>
+              <div className="space-y-3">{divs}</div>
             </div>
           </div>
         </div>
@@ -45,8 +45,7 @@ const LoadingStatus: React.FC = () => {
 };
 
 export default function LogsTable() {
-  const { arrayOfEvents } = useEventsStore();
-  const { isLoading } = useLoadingStore();
+  const { isLoading, arrayOfEvents } = useFetchEvents();
   const events = arrayOfEvents || [];
 
   return (

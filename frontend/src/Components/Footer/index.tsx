@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback} from "react";
 import { Params, fetchData } from "../../customeHooks/fetcher";
 import { IEventType, useEventsStore } from "../../store/events";
 import { useFilterStore } from "../../store/filters";
@@ -22,6 +22,7 @@ function LoadMoreButton() {
       insertLast(data as IEventType[]);
       setIsLoading(false);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [arrayOfEvents, filters, insertLast]);
 
   return arrayOfEvents.length > 0 ? (
