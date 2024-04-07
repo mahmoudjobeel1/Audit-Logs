@@ -1,8 +1,6 @@
 # Node.js dependencies
 node_modules/
 
-migrations/
-
 # TypeScript compiled output
 dist/
 *.js
