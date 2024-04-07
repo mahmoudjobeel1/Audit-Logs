@@ -21,7 +21,7 @@ export class EventService {
 
   async getEvents(eventData: getEventsInput) {
     let { limit = this.defaultLimit, searchText } = eventData;
-    
+
     limit = typeof limit === "string" ? parseInt(limit, 10) : limit;
 
     const occurredAtStart = eventData.occurredAtStart
@@ -30,11 +30,14 @@ export class EventService {
     const occurredAtEnd = eventData.occurredAtEnd
       ? new Date(parseInt(eventData.occurredAtEnd)).toISOString()
       : undefined;
-      
+
     let filters = {
       id: eventData?.id,
       actorId: eventData?.actorId,
       group: eventData?.group,
+      action: {
+        name: eventData?.actionName,
+      },
       occurredAt: {
         gte: occurredAtStart,
         lte: occurredAtEnd,
@@ -42,12 +45,11 @@ export class EventService {
     };
 
     let search = [
-      { actorName: { contains: searchText } },
-      { group: { contains: searchText } },
-      { targetName: { contains: searchText } },
-      { action: { name: { contains: searchText } } },
+      { actorName: { contains: searchText, mode: "insensitive" } },
+      { group: { contains: searchText, mode: "insensitive" } },
+      { targetName: { contains: searchText, mode: "insensitive" } },
+      { action: { name: { contains: searchText, mode: "insensitive" } } },
     ];
-
 
     let pagination: any = eventData?.lastEventId
       ? {
