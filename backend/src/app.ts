@@ -5,7 +5,7 @@ export const app = fastify({ logger: false });
 
 
 app.register(require('@fastify/cors'), {
-  origin: 'http://localhost:3000'
+  origin: ['http://localhost:3000', 'https://audit-logs-frontend.onrender.com']
 });
 
 app.get('/', async (request, reply) => {
