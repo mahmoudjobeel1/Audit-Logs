@@ -24,10 +24,10 @@ export class EventService {
     limit = typeof limit === "string" ? parseInt(limit, 10) : limit;
 
     const occurredAtStart = eventData.occurredAtStart
-      ? new Date(parseInt(eventData.occurredAtStart))
+      ? new Date(parseInt(eventData.occurredAtStart)).toISOString()
       : undefined;
     const occurredAtEnd = eventData.occurredAtEnd
-      ? new Date(parseInt(eventData.occurredAtEnd))
+      ? new Date(parseInt(eventData.occurredAtEnd)).toISOString()
       : undefined;
       
     let filters = {
